@@ -5,8 +5,12 @@ class AllCategoriesService {
   Future<List<dynamic>> getallcategoires() async {
     Response response =
         await get(Uri.parse('https://fakestores.com/categories'));
-    List<dynamic> data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
 
-    return data;
+      return data;
+    } else {
+      throw Exception('there is a problem with status code ');
+    }
   }
 }
