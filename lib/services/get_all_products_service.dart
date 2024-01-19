@@ -1,5 +1,17 @@
-import 'package:flutter/material.dart';
-Class GetAllProducts{
-  
-   
+import 'dart:convert';
+
+import 'package:http/http.dart';
+import 'package:storeapp/models/model.dart';
+
+class AllProuctsService {
+  Future<List<ProductModel>> getAllProducts() async {
+    // ignore: unused_local_variable
+    Response response = await get(Uri.parse('https://fakestores.com/products'));
+    List<dynamic> data = jsonDecode(response.body);
+    List<ProductModel> productList = [];
+    for (int i = 0; i < data.length; i++) {
+      productList.add(ProductModel.fromJson(data[i]));
+    }
+    return productList;
+  }
 }
