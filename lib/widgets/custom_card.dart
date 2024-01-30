@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:storeapp/models/model.dart';
 
+// ignore: must_be_immutable
 class CustomCard extends StatelessWidget {
-  const CustomCard({
+  CustomCard({
+    required this.product,
     Key? key,
   }) : super(key: key);
-
+  ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -45,7 +48,7 @@ class CustomCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '225\$',
+                          product.price.toString(),
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 16,
@@ -66,8 +69,9 @@ class CustomCard extends StatelessWidget {
             right: 32,
             top: -60,
             child: Image.network(
-              'https://fakestoreapi.com/img/81f{Kd-ZAYAL._AC_SL1500_jpg',
+              product.image,
               height: 100,
+              width: 100,
             ),
           )
         ],

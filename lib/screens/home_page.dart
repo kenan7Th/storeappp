@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:storeapp/models/model.dart';
+import 'package:storeapp/services/get_all_products_service.dart';
 
 import '../widgets/custom_card.dart';
 
@@ -22,19 +24,31 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 65),
-        child: GridView.builder(
-            clipBehavior: Clip.none,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.5,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 100,
-            ),
-            itemBuilder: (context, index) {
-              return CustomCard();
-            }),
-      ),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 65),
+          child: FutureBuilder<List<ProductModel>>(
+            future: AllProuctsService().getAllProducts(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<ProductModel> products = snapshot.data;
+                return GridView.builder(
+                    itemCount: products.length,
+                    clipBehavior: Clip.none,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 100,
+                    ),
+                    itemBuilder: (context, index) {
+                      return CustomCard(
+                        product: products[index],
+                      );
+                    });
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          )),
     );
   }
 }
