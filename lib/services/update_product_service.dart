@@ -1,7 +1,7 @@
 import '../helper/api.dart';
 import '../models/model.dart';
 
-class UpdateProduct {
+class UpdateProductSerivce {
   Future<ProductModel> updateProduct(
       {required String title,
       required String price,
