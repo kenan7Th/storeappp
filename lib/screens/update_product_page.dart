@@ -91,6 +91,7 @@ bool isLoading=false;
                     });
                     try{
                         myUpdater(product);
+                        print('success');
                     } catch(e){
                       print( 'hee');
                       
@@ -116,6 +117,7 @@ bool isLoading=false;
     void myUpdater(ProductModel product) async {
     try {
       await UpdateProductSerivce().updateProduct(
+        id: product.id,
         title: productName ?? product.title,
         price: price ?? product.price.toString(),
         desc: desc ?? product.description,
